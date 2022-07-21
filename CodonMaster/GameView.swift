@@ -9,10 +9,16 @@ import Foundation
 import SwiftUI
 
 struct GameView: View {
+    @State var progressValue: Float = 0.2
+
     var body: some View {
         ZStack {
             Text("UAA").background(.cyan)
             VStack {
+                HStack(spacing: 10) {
+                    ProgressBar(value: $progressValue).frame(maxHeight: 30)
+                    Text("10000")
+                }.padding()
                 Spacer()
                 HStack {
                     BaseButton(title: "U", background: .yellow)
