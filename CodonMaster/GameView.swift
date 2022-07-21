@@ -18,7 +18,7 @@ struct GameView: View {
                 HStack(spacing: 10) {
                     ProgressBar(value: $progressValue).frame(maxHeight: 30)
                     Text("10000")
-                }.padding()
+                }.padding()
                 Spacer()
                 HStack {
                     BaseButton(title: "U", background: .yellow)
