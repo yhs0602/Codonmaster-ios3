@@ -27,11 +27,11 @@ struct ContentView: View {
                 NavigationLink {
                     SettingView()
                 } label: {
-                    Label("Option", systemImage: "gearshape")
+                    Label("Setting", systemImage: "gearshape")
                 }
 
                 NavigationLink {
-                    GameView()
+                    AnnounceView()
                 } label: {
                     Label("Announcement", systemImage: "speaker")
                 }

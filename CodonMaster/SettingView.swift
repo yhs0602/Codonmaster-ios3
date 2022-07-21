@@ -34,7 +34,7 @@ struct SettingView: View {
                 } label: {
                     Text("도움말")
                 }
-            }.navigationTitle("Setting")
-        }
+            }
+        }.navigationTitle("Setting")
     }
 }

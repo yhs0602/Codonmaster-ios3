@@ -14,6 +14,7 @@
 		46270EF828897E77008967D7 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46270EF728897E77008967D7 /* GameView.swift */; };
 		46270EFA28897E96008967D7 /* RankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46270EF928897E96008967D7 /* RankingView.swift */; };
 		46270EFC28897EF8008967D7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46270EFB28897EF8008967D7 /* SettingView.swift */; };
+		46C460FC288987F600752293 /* AnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C460FB288987F500752293 /* AnnounceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		46270EF728897E77008967D7 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		46270EF928897E96008967D7 /* RankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingView.swift; sourceTree = "<group>"; };
 		46270EFB28897EF8008967D7 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		46C460FB288987F500752293 /* AnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				460820C7288694EF00B6AA5C /* Preview Content */,
 				46270EF728897E77008967D7 /* GameView.swift */,
 				46270EFB28897EF8008967D7 /* SettingView.swift */,
+				46C460FB288987F500752293 /* AnnounceView.swift */,
 			);
 			path = CodonMaster;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				460820C4288694ED00B6AA5C /* ContentView.swift in Sources */,
+				46C460FC288987F600752293 /* AnnounceView.swift in Sources */,
 				46270EFC28897EF8008967D7 /* SettingView.swift in Sources */,
 				46270EFA28897E96008967D7 /* RankingView.swift in Sources */,
 				46270EF828897E77008967D7 /* GameView.swift in Sources */,
