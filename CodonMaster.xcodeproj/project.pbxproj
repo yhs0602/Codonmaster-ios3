@@ -41,7 +41,6 @@
 		460820B5288694ED00B6AA5C = {
 			isa = PBXGroup;
 			children = (
-				46270EF928897E96008967D7 /* RankingView.swift */,
 				460820C0288694ED00B6AA5C /* CodonMaster */,
 				460820BF288694ED00B6AA5C /* Products */,
 			);
@@ -58,6 +57,7 @@
 		460820C0288694ED00B6AA5C /* CodonMaster */ = {
 			isa = PBXGroup;
 			children = (
+				46270EF928897E96008967D7 /* RankingView.swift */,
 				460820C1288694ED00B6AA5C /* CodonMasterApp.swift */,
 				460820C3288694ED00B6AA5C /* ContentView.swift */,
 				460820C5288694EF00B6AA5C /* Assets.xcassets */,
