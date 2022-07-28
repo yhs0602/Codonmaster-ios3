@@ -16,35 +16,34 @@ enum Base: String, CaseIterable {
 }
 
 struct GameView: View {
-    @State var progressValue: Float = 0.2
     @State var score: Int = 0
     @StateObject var gameViewModel = GameViewModel()
-    
+
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            GeometryReader { geometry in
-                ForEach(gameViewModel.acids, id: \.self) { acid in
-                    AcidView(geometry: geometry.size, acid: acid)
+        VStack {
+            ZStack(alignment: .topLeading) {
+                GeometryReader { geometry in
+                    ForEach(gameViewModel.acids, id: \.self) { acid in
+                        AcidView(geometry: geometry.size, acid: acid)
+                    }
                 }
-            }
-            VStack {
                 HStack(spacing: 10) {
-                    ProgressBar(value: $progressValue).frame(maxHeight: 30)
+                    ProgressBar(value: Binding.constant(Float(gameViewModel.life) / 100.0)).frame(maxHeight: 30)
                     Text(String(score))
                 }.padding()
                 Spacer()
-                Text(gameViewModel.combiningAcid.map { base in
-                    base.rawValue
-                }.joined(separator: "")
-                )
-                HStack(spacing: 0) {
-                    BaseButton(title: "U", onClick: gameViewModel.onClickBase, background: .yellow)
-                    BaseButton(title: "C", onClick: gameViewModel.onClickBase, background: .green)
-                    BaseButton(title: "A", onClick: gameViewModel.onClickBase, background: .red)
-                    BaseButton(title: "G", onClick: gameViewModel.onClickBase, background: .black, foreground: .white)
-                    BaseButton(title: "CLR", onClick: gameViewModel.onClickBase, background: .white)
-                }.fixedSize(horizontal: false, vertical: true)
             }
+            Text(gameViewModel.combiningAcid.map { base in
+                base.rawValue
+            }.joined(separator: "")
+            )
+            HStack(spacing: 0) {
+                BaseButton(title: "U", onClick: gameViewModel.onClickBase, background: .yellow)
+                BaseButton(title: "C", onClick: gameViewModel.onClickBase, background: .green)
+                BaseButton(title: "A", onClick: gameViewModel.onClickBase, background: .red)
+                BaseButton(title: "G", onClick: gameViewModel.onClickBase, background: .black, foreground: .white)
+                BaseButton(title: "CLR", onClick: gameViewModel.onClickBase, background: .white)
+            }.fixedSize(horizontal: false, vertical: true)
         }.onDisappear {
             self.gameViewModel.invalidate()
         }
@@ -57,7 +56,7 @@ struct AcidView: View {
     let x: CGFloat
     let y: CGFloat
     let acid: Acid
-    
+
     init(geometry: CGSize, acid: Acid) {
         self.w = geometry.width
         self.h = geometry.height
@@ -65,16 +64,16 @@ struct AcidView: View {
         self.x = CGFloat(acid.x) * self.w
         self.y = CGFloat(acid.age) * self.h
     }
-    
+
     var body: some View {
         Text(String(describing: acid.kind))
             .padding(10)
             .frame(height: 40)
             .background(
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(Color.white)
-                    .shadow(radius: 3)
-            )
+            RoundedRectangle(cornerRadius: 5)
+                .fill(Color.white)
+                .shadow(radius: 3)
+        )
             .position(x: x, y: y)
     }
 }

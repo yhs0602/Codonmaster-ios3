@@ -14,7 +14,7 @@ func acidPublisher() -> AnyPublisher<Acid, Never> {
         .autoconnect()
         .receive(on: DispatchQueue.global())
         .map { date in
-        Acid(age: 0, x: Float(arc4random()) / Float(UInt32.max), kind: AcidKind.allCases.randomElement()!)
+            Acid(age: 0, x: Float.random(in: 0.1..<0.9), kind: AcidKind.allCases.randomElement()!)
     }
         .eraseToAnyPublisher()
 }

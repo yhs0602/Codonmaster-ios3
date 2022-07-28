@@ -11,11 +11,14 @@ import Combine
 class GameViewModel: ObservableObject {
     @Published var acids: [Acid] = []
     @Published var combiningAcid: [Base] = []
+    @Published var life : Int
+    
 
     let acidPublisher: AnyPublisher<Acid, Never>
     var acidPublishCancellable: AnyCancellable? = nil
     var gameLoopCancellable: AnyCancellable? = nil
     init() {
+        self.life = 100
         acidPublisher = CodonMaster.acidPublisher()
         acidPublishCancellable = acidPublisher
             .receive(on: RunLoop.main)
@@ -30,6 +33,11 @@ class GameViewModel: ObservableObject {
             for index in self.acids.indices {
                 self.acids[index].age += 0.002
             }
+                if self.acids.contains(where: { acid in
+                    acid.age > 1
+                }) == true {
+                    self.life -= 10
+                }
             self.acids = self.acids.filter { acid in
                 acid.age <= 1
             }
