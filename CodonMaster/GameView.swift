@@ -33,10 +33,7 @@ struct GameView: View {
                 }.padding()
                 Spacer()
             }
-            Text(gameViewModel.combiningAcid.map { base in
-                base.rawValue
-            }.joined(separator: "")
-            )
+            Text(gameViewModel.combiningAcid.description)
             HStack(spacing: 0) {
                 BaseButton(title: "U", onClick: gameViewModel.onClickBase, background: .yellow)
                 BaseButton(title: "C", onClick: gameViewModel.onClickBase, background: .green)

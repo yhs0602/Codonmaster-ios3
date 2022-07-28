@@ -10,9 +10,8 @@ import Combine
 
 class GameViewModel: ObservableObject {
     @Published var acids: [Acid] = []
-    @Published var combiningAcid: [Base] = []
-    @Published var life : Int
-    
+    @Published var combiningAcid: AcidCombinator = AcidCombinator()
+    @Published var life: Int
 
     let acidPublisher: AnyPublisher<Acid, Never>
     var acidPublishCancellable: AnyCancellable? = nil
@@ -33,11 +32,11 @@ class GameViewModel: ObservableObject {
             for index in self.acids.indices {
                 self.acids[index].age += 0.002
             }
-                if self.acids.contains(where: { acid in
-                    acid.age > 1
-                }) == true {
-                    self.life -= 10
-                }
+            if self.acids.contains(where: { acid in
+                acid.age > 1
+            }) == true {
+                self.life -= 10
+            }
             self.acids = self.acids.filter { acid in
                 acid.age <= 1
             }
@@ -53,20 +52,29 @@ class GameViewModel: ObservableObject {
     }
 
     func onClickBase(what: String) {
+        var result: AcidKind? = nil
         switch (what) {
         case "CLR":
-            combiningAcid = []
+            combiningAcid.reset()
+            return
         case "A":
-            combiningAcid.append(Base.A)
+            result = combiningAcid.addBase(base: Base.A)
         case "G":
-            combiningAcid.append(Base.G)
+            result = combiningAcid.addBase(base: Base.G)
         case "U":
-            combiningAcid.append(Base.U)
+            result = combiningAcid.addBase(base: Base.U)
         case "C":
-            combiningAcid.append(Base.C)
+            result = combiningAcid.addBase(base: Base.C)
         default:
-            print("Hello")
-
+            assert(false)
+        }
+        if let result2 = result {
+            combiningAcid.reset()
+            if self.acids.first?.kind == result2 {
+                print("Hooray")
+            } else {
+                self.life -= 20
+            }
         }
     }
 }
@@ -79,4 +87,99 @@ struct Acid: Hashable {
     var age: Float // 0..1
     let x: Float
     let kind: AcidKind
+}
+
+
+class AcidCombinator: ObservableObject, CustomStringConvertible {
+    var description: String {
+        return bases.map { base in
+            base.rawValue
+        }.joined()
+    }
+
+    var phase: Int = 0
+    @Published var bases: [Base] = []
+
+    func reset() {
+        self.bases = []
+    }
+
+    func addBase(base: Base) -> AcidKind? {
+        switch (self.phase) {
+        case 0:
+            bases.append(base)
+            self.phase += 1
+        case 1:
+            bases.append(base)
+            self.phase += 1
+        case 2:
+            bases.append(base)
+            self.phase += 1
+            let acid = getAcid()
+            self.phase = 0
+            return acid
+        default:
+            print("hello")
+        }
+        return nil
+    }
+
+    private func getAcid() -> AcidKind {
+        assert(self.phase == 3)
+        switch (bases[0]) {
+        case .U:
+            switch (bases[1]) {
+            case .U: switch (bases[2]) {
+                    case .U, .C: return AcidKind.Phe
+                    default: return AcidKind.Leu
+                }
+            case .C: return AcidKind.Ser
+            case .A: switch (bases[2]) {
+                    case .U, .C: return AcidKind.Tyr
+                    default: return AcidKind.End
+                }
+            case .G: switch (bases[2]) {
+                    case .U, .C: return AcidKind.Cys
+                    case .A: return AcidKind.End
+                    case .G: return AcidKind.Trp
+                }
+            }
+        case .C:
+            switch (bases[1]) {
+            case .U: return AcidKind.Leu
+            case .C: return AcidKind.Pro
+            case .A: switch (bases[2]) {
+                    case .U, .C: return AcidKind.His
+                    default: return AcidKind.Gln
+                }
+            case .G: return AcidKind.Arg
+            }
+        case .A:
+            switch (bases[1]) {
+            case .U: switch (bases[2]) {
+                    case .U, .C, .A: return AcidKind.Ile
+                    default: return AcidKind.Met
+                }
+            case .C: return AcidKind.Thr
+            case .A: switch (bases[2]) {
+                    case .U, .C: return AcidKind.Asn
+                    default: return AcidKind.Lys
+                }
+            case .G: switch (bases[2]) {
+                    case .U, .C: return AcidKind.Ser
+                    case .A, .G: return AcidKind.Arg
+                }
+            }
+        case .G:
+            switch (bases[1]) {
+            case .U: return AcidKind.Val
+            case .C: return AcidKind.Ala
+            case .A: switch (bases[2]) {
+                    case .U, .C: return AcidKind.Asp
+                    default: return AcidKind.Glu
+                }
+            case .G: return AcidKind.Gly
+            }
+        }
+    }
 }
