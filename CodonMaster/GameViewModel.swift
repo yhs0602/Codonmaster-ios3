@@ -9,42 +9,52 @@ import Foundation
 import Combine
 
 class GameViewModel: ObservableObject {
+    var lock = NSLock()
     @Published var acids: [Acid] = []
     @Published var combiningAcid: AcidCombinator = AcidCombinator()
     @Published var life: Int
     @Published var score: Int
-
+    @Published var isGameOver: Bool
+    
     let acidPublisher: AnyPublisher<Acid, Never>
     var acidPublishCancellable: AnyCancellable? = nil
     var gameLoopCancellable: AnyCancellable? = nil
     init() {
         self.life = 100
         self.score = 0
+        self.isGameOver = false
         acidPublisher = CodonMaster.acidPublisher()
         acidPublishCancellable = acidPublisher
             .receive(on: RunLoop.main)
             .sink { acid in
-            self.acids.append(acid)
-            print("Generated acid \(acid.kind)")
-        }
+                self.lock.with {
+                    self.acids.append(acid)
+                }
+                print("Generated acid \(acid.kind)")
+            }
         gameLoopCancellable = Timer.publish(every: 0.025, on: .main, in: .default)
             .autoconnect()
             .receive(on: RunLoop.main)
             .sink { time in
-            for index in self.acids.indices {
-                self.acids[index].age += 0.002
+                self.lock.with {
+                    for index in self.acids.indices {
+                        self.acids[index].age += 0.002
+                    }
+                    if self.acids.contains(where: { acid in
+                        acid.age > 1
+                    }) == true {
+                        self.life -= 10
+                    }
+                    self.acids = self.acids.filter { acid in
+                        acid.age <= 1
+                    }
+                }
+                if self.life <= 0 {
+                    self.endGame()
+                }
             }
-            if self.acids.contains(where: { acid in
-                acid.age > 1
-            }) == true {
-                self.life -= 10
-            }
-            self.acids = self.acids.filter { acid in
-                acid.age <= 1
-            }
-        }
     }
-
+    
     func invalidate() {
         acidPublishCancellable?.cancel()
         acidPublishCancellable = nil
@@ -52,7 +62,7 @@ class GameViewModel: ObservableObject {
         gameLoopCancellable = nil
         print("[<<] invalidated")
     }
-
+    
     func onClickBase(what: String) {
         var result: AcidKind? = nil
         switch (what) {
@@ -73,12 +83,18 @@ class GameViewModel: ObservableObject {
         if let result2 = result {
             combiningAcid.reset()
             if self.acids.first?.kind == result2 {
-                self.life += 10
+                self.life = min(self.life + 15, 100)
                 self.score += 100
+                self.acids.removeFirst()
             } else {
-                self.life -= 20
+                self.life = max(self.life - 10, 0)
             }
         }
+    }
+    
+    func endGame() {
+        invalidate()
+        isGameOver = true
     }
 }
 
@@ -99,15 +115,15 @@ class AcidCombinator: ObservableObject, CustomStringConvertible {
             base.rawValue
         }.joined()
     }
-
+    
     var phase: Int = 0
     var bases: [Base] = []
-
+    
     func reset() {
         self.bases = []
         self.phase = 0
     }
-
+    
     func addBase(base: Base) -> AcidKind? {
         switch (self.phase) {
         case 0:
@@ -128,61 +144,61 @@ class AcidCombinator: ObservableObject, CustomStringConvertible {
         }
         return nil
     }
-
+    
     private func getAcid() -> AcidKind {
         assert(self.phase == 3)
         switch (bases[0]) {
         case .U:
             switch (bases[1]) {
             case .U: switch (bases[2]) {
-                    case .U, .C: return AcidKind.Phe
-                    default: return AcidKind.Leu
-                }
+            case .U, .C: return AcidKind.Phe
+            default: return AcidKind.Leu
+            }
             case .C: return AcidKind.Ser
             case .A: switch (bases[2]) {
-                    case .U, .C: return AcidKind.Tyr
-                    default: return AcidKind.End
-                }
+            case .U, .C: return AcidKind.Tyr
+            default: return AcidKind.End
+            }
             case .G: switch (bases[2]) {
-                    case .U, .C: return AcidKind.Cys
-                    case .A: return AcidKind.End
-                    case .G: return AcidKind.Trp
-                }
+            case .U, .C: return AcidKind.Cys
+            case .A: return AcidKind.End
+            case .G: return AcidKind.Trp
+            }
             }
         case .C:
             switch (bases[1]) {
             case .U: return AcidKind.Leu
             case .C: return AcidKind.Pro
             case .A: switch (bases[2]) {
-                    case .U, .C: return AcidKind.His
-                    default: return AcidKind.Gln
-                }
+            case .U, .C: return AcidKind.His
+            default: return AcidKind.Gln
+            }
             case .G: return AcidKind.Arg
             }
         case .A:
             switch (bases[1]) {
             case .U: switch (bases[2]) {
-                    case .U, .C, .A: return AcidKind.Ile
-                    default: return AcidKind.Met
-                }
+            case .U, .C, .A: return AcidKind.Ile
+            default: return AcidKind.Met
+            }
             case .C: return AcidKind.Thr
             case .A: switch (bases[2]) {
-                    case .U, .C: return AcidKind.Asn
-                    default: return AcidKind.Lys
-                }
+            case .U, .C: return AcidKind.Asn
+            default: return AcidKind.Lys
+            }
             case .G: switch (bases[2]) {
-                    case .U, .C: return AcidKind.Ser
-                    case .A, .G: return AcidKind.Arg
-                }
+            case .U, .C: return AcidKind.Ser
+            case .A, .G: return AcidKind.Arg
+            }
             }
         case .G:
             switch (bases[1]) {
             case .U: return AcidKind.Val
             case .C: return AcidKind.Ala
             case .A: switch (bases[2]) {
-                    case .U, .C: return AcidKind.Asp
-                    default: return AcidKind.Glu
-                }
+            case .U, .C: return AcidKind.Asp
+            default: return AcidKind.Glu
+            }
             case .G: return AcidKind.Gly
             }
         }

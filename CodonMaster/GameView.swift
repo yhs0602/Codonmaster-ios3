@@ -8,90 +8,46 @@
 import Foundation
 import SwiftUI
 
-enum Base: String, CaseIterable {
-    case U
-    case C
-    case A
-    case G
-}
 
 struct GameView: View {
     @StateObject var gameViewModel = GameViewModel()
-
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        VStack {
-            ZStack(alignment: .topLeading) {
-                GeometryReader { geometry in
-                    ForEach(gameViewModel.acids, id: \.self) { acid in
-                        AcidView(geometry: geometry.size, acid: acid)
+        ZStack {
+            VStack {
+                ZStack(alignment: .topLeading) {
+                    GeometryReader { geometry in
+                        ForEach(gameViewModel.acids, id: \.self) { acid in
+                            AcidView(geometry: geometry.size, acid: acid)
+                        }
                     }
+                    HStack(spacing: 10) {
+                        ProgressBar(value: Binding.constant(Float(gameViewModel.life) / 100.0)).frame(maxHeight: 30)
+                        Text(String(gameViewModel.score))
+                    }.padding()
+                    Spacer()
                 }
-                HStack(spacing: 10) {
-                    ProgressBar(value: Binding.constant(Float(gameViewModel.life) / 100.0)).frame(maxHeight: 30)
-                    Text(String(gameViewModel.score))
-                }.padding()
-                Spacer()
+                Text(gameViewModel.combiningAcid.description)
+                HStack(spacing: 0) {
+                    BaseButton(title: "U", onClick: gameViewModel.onClickBase, background: .yellow)
+                    BaseButton(title: "C", onClick: gameViewModel.onClickBase, background: .green)
+                    BaseButton(title: "A", onClick: gameViewModel.onClickBase, background: .red)
+                    BaseButton(title: "G", onClick: gameViewModel.onClickBase, background: .black, foreground: .white)
+                    BaseButton(title: "CLR", onClick: gameViewModel.onClickBase, background: .white)
+                }.fixedSize(horizontal: false, vertical: true)
             }
-            Text(gameViewModel.combiningAcid.description)
-            HStack(spacing: 0) {
-                BaseButton(title: "U", onClick: gameViewModel.onClickBase, background: .yellow)
-                BaseButton(title: "C", onClick: gameViewModel.onClickBase, background: .green)
-                BaseButton(title: "A", onClick: gameViewModel.onClickBase, background: .red)
-                BaseButton(title: "G", onClick: gameViewModel.onClickBase, background: .black, foreground: .white)
-                BaseButton(title: "CLR", onClick: gameViewModel.onClickBase, background: .white)
-            }.fixedSize(horizontal: false, vertical: true)
-        }.onDisappear {
+            if (gameViewModel.isGameOver) {
+                VStack {
+                    Text("GameOver")
+                    Button(action: { self.presentationMode.wrappedValue.dismiss() }, label: {
+                        Text("Go back")
+                    })
+                }
+            }
+        }
+        .onDisappear {
             self.gameViewModel.invalidate()
         }
-    }
-}
-
-struct AcidView: View {
-    let w: CGFloat
-    let h: CGFloat
-    let x: CGFloat
-    let y: CGFloat
-    let acid: Acid
-
-    init(geometry: CGSize, acid: Acid) {
-        self.w = geometry.width
-        self.h = geometry.height
-        self.acid = acid
-        self.x = CGFloat(acid.x) * self.w
-        self.y = CGFloat(acid.age) * self.h
-    }
-
-    var body: some View {
-        Text(String(describing: acid.kind))
-            .padding(10)
-            .frame(height: 40)
-            .background(
-            RoundedRectangle(cornerRadius: 5)
-                .fill(Color.white)
-                .shadow(radius: 3)
-        )
-            .position(x: x, y: y)
-    }
-}
-
-struct BaseButton: View {
-    let title: String
-    let background: Color
-    let foreground: Color
-    let onClick: (String) -> ()
-    init(title: String, onClick: @escaping (String) -> (), background: Color, foreground: Color = .black) {
-        self.title = title
-        self.background = background
-        self.foreground = foreground
-        self.onClick = onClick
-    }
-    var body: some View {
-        Button(action: { onClick(title) }, label: {
-            Text(title)
-                .padding(.vertical, 30)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(background)
-                .foregroundColor(foreground)
-        })
     }
 }
