@@ -16,7 +16,6 @@ enum Base: String, CaseIterable {
 }
 
 struct GameView: View {
-    @State var score: Int = 0
     @StateObject var gameViewModel = GameViewModel()
 
     var body: some View {
@@ -29,7 +28,7 @@ struct GameView: View {
                 }
                 HStack(spacing: 10) {
                     ProgressBar(value: Binding.constant(Float(gameViewModel.life) / 100.0)).frame(maxHeight: 30)
-                    Text(String(score))
+                    Text(String(gameViewModel.score))
                 }.padding()
                 Spacer()
             }

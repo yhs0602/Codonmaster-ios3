@@ -12,12 +12,14 @@ class GameViewModel: ObservableObject {
     @Published var acids: [Acid] = []
     @Published var combiningAcid: AcidCombinator = AcidCombinator()
     @Published var life: Int
+    @Published var score: Int
 
     let acidPublisher: AnyPublisher<Acid, Never>
     var acidPublishCancellable: AnyCancellable? = nil
     var gameLoopCancellable: AnyCancellable? = nil
     init() {
         self.life = 100
+        self.score = 0
         acidPublisher = CodonMaster.acidPublisher()
         acidPublishCancellable = acidPublisher
             .receive(on: RunLoop.main)
@@ -71,7 +73,8 @@ class GameViewModel: ObservableObject {
         if let result2 = result {
             combiningAcid.reset()
             if self.acids.first?.kind == result2 {
-                print("Hooray")
+                self.life += 10
+                self.score += 100
             } else {
                 self.life -= 20
             }
@@ -98,10 +101,11 @@ class AcidCombinator: ObservableObject, CustomStringConvertible {
     }
 
     var phase: Int = 0
-    @Published var bases: [Base] = []
+    var bases: [Base] = []
 
     func reset() {
         self.bases = []
+        self.phase = 0
     }
 
     func addBase(base: Base) -> AcidKind? {
@@ -117,9 +121,10 @@ class AcidCombinator: ObservableObject, CustomStringConvertible {
             self.phase += 1
             let acid = getAcid()
             self.phase = 0
+            reset()
             return acid
         default:
-            print("hello")
+            assert(false)
         }
         return nil
     }
