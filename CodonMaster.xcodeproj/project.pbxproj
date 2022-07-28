@@ -15,6 +15,7 @@
 		46270EFA28897E96008967D7 /* RankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46270EF928897E96008967D7 /* RankingView.swift */; };
 		46270EFC28897EF8008967D7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46270EFB28897EF8008967D7 /* SettingView.swift */; };
 		4658E7B5289131AB0073FB5E /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4658E7B4289131AB0073FB5E /* GameViewModel.swift */; };
+		4658E7B728916A9E0073FB5E /* GameThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4658E7B628916A9E0073FB5E /* GameThread.swift */; };
 		46C460FC288987F600752293 /* AnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C460FB288987F500752293 /* AnnounceView.swift */; };
 		46C460FE28898B2800752293 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C460FD28898B2800752293 /* ProgressBar.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 		46270EF928897E96008967D7 /* RankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingView.swift; sourceTree = "<group>"; };
 		46270EFB28897EF8008967D7 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		4658E7B4289131AB0073FB5E /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		4658E7B628916A9E0073FB5E /* GameThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameThread.swift; sourceTree = "<group>"; };
 		46C460FB288987F500752293 /* AnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceView.swift; sourceTree = "<group>"; };
 		46C460FD28898B2800752293 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 				46C460FB288987F500752293 /* AnnounceView.swift */,
 				46C460FD28898B2800752293 /* ProgressBar.swift */,
 				4658E7B4289131AB0073FB5E /* GameViewModel.swift */,
+				4658E7B628916A9E0073FB5E /* GameThread.swift */,
 			);
 			path = CodonMaster;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 				460820C4288694ED00B6AA5C /* ContentView.swift in Sources */,
 				46C460FC288987F600752293 /* AnnounceView.swift in Sources */,
 				46270EFC28897EF8008967D7 /* SettingView.swift in Sources */,
+				4658E7B728916A9E0073FB5E /* GameThread.swift in Sources */,
 				46270EFA28897E96008967D7 /* RankingView.swift in Sources */,
 				4658E7B5289131AB0073FB5E /* GameViewModel.swift in Sources */,
 				46270EF828897E77008967D7 /* GameView.swift in Sources */,

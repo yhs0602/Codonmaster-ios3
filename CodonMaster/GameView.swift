@@ -27,18 +27,14 @@ struct GameView: View {
                 ForEach(gameViewModel.acids, id: \.self) { acid in
                     AcidView(geometry: geometry.size, acid: acid)
                 }
-            }
-
-
+            }.background(.brown) // .ignoresSafeArea(.all, edges: [])
+            
             VStack {
                 HStack(spacing: 10) {
                     ProgressBar(value: $progressValue).frame(maxHeight: 30)
                     Text(String(score))
                 }.padding()
                 Spacer()
-                //                VStack(alignment: .trailing) {
-                //                    Text(String(composing.sequence.joined(""))).frame(maxWidth: .infinity, alignment: .trailing)
-                //                }.frame(maxWidth: .infinity)
                 HStack(spacing: 0) {
                     BaseButton(title: "U", background: .yellow)
                     BaseButton(title: "C", background: .green)
@@ -47,7 +43,9 @@ struct GameView: View {
                     BaseButton(title: "CLR", background: .white)
                 }.fixedSize(horizontal: false, vertical: true)
             }
-        }.background(.brown)
+        }.onDisappear {
+            self.gameViewModel.invalidate()
+        }
     }
 }
 
@@ -67,13 +65,15 @@ struct AcidView: View {
     }
 
     var body: some View {
-        HStack(spacing: 0) {
-            Spacer().frame(width: self.x)
-            Text(String(describing: acid.kind))
-                .padding(10)
-                .background(.cyan)
-                .position(x: 0, y: y)
-        }
+        Text(String(describing: acid.kind))
+            .padding(10)
+            .frame(height: 40)
+            .background(
+            RoundedRectangle(cornerRadius: 5)
+                .fill(Color.white)
+                .shadow(radius: 3)
+        )
+            .position(x: x, y: y)
     }
 }
 
