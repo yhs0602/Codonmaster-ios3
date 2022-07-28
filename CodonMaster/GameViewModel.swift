@@ -9,14 +9,8 @@ import Foundation
 import Combine
 
 class GameViewModel: ObservableObject {
-    @Published var acids: [Acid] = [
-        Acid(age: 0.5, x: 0.3, kind: .Phe),
-        Acid(age: 0, x: 0.3, kind: .Leu),
-        Acid(age: 0.8, x: 0.8, kind: .Met),
-        Acid(age: 0.6, x: 0.9, kind: .Gly),
-        Acid(age: 1, x: 0.9, kind: .His),
-        Acid(age: 1, x: 1, kind: .Gln),
-    ]
+    @Published var acids: [Acid] = []
+    @Published var combiningAcid: [Base] = []
 
     let acidPublisher: AnyPublisher<Acid, Never>
     var acidPublishCancellable: AnyCancellable? = nil
@@ -29,12 +23,15 @@ class GameViewModel: ObservableObject {
             self.acids.append(acid)
             print("Generated acid \(acid.kind)")
         }
-        gameLoopCancellable = Timer.publish(every: 0.5, on: .main, in: .default)
+        gameLoopCancellable = Timer.publish(every: 0.025, on: .main, in: .default)
             .autoconnect()
             .receive(on: RunLoop.main)
             .sink { time in
             for index in self.acids.indices {
-                self.acids[index].age += 0.01
+                self.acids[index].age += 0.002
+            }
+            self.acids = self.acids.filter { acid in
+                acid.age <= 1
             }
         }
     }
@@ -45,6 +42,24 @@ class GameViewModel: ObservableObject {
         gameLoopCancellable?.cancel()
         gameLoopCancellable = nil
         print("[<<] invalidated")
+    }
+
+    func onClickBase(what: String) {
+        switch (what) {
+        case "CLR":
+            combiningAcid = []
+        case "A":
+            combiningAcid.append(Base.A)
+        case "G":
+            combiningAcid.append(Base.G)
+        case "U":
+            combiningAcid.append(Base.U)
+        case "C":
+            combiningAcid.append(Base.C)
+        default:
+            print("Hello")
+
+        }
     }
 }
 

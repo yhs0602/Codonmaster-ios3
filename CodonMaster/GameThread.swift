@@ -10,7 +10,7 @@ import Combine
 
 func acidPublisher() -> AnyPublisher<Acid, Never> {
     return Timer
-        .publish(every: 3, on: .main, in: .default)
+        .publish(every: 4, on: .main, in: .default)
         .autoconnect()
         .receive(on: DispatchQueue.global())
         .map { date in
