@@ -8,13 +8,19 @@
 import Foundation
 import SwiftUI
 
+enum NameMode: String, CaseIterable {
+    case Single = "Single letter"
+    case Three = "Three letters"
+    case Full = "Full name"
+    case Korean = "Korean"
+}
 
 struct SettingView: View {
     @State private var nickname = ""
-    @State private var category = "Full name"
+    @State private var category = 0
     @State private var showHint = false
 
-    let categories = ["Single letter", "3 letters", "Full name", "Korean"]
+    let categories = NameMode.allCases
     var body: some View {
         Form {
             Section(header: Text("계정 정보"), footer: Text("랭킹 등록에 사용할 닉네임을 설정합니다.")) {
@@ -23,7 +29,7 @@ struct SettingView: View {
             Section(header: Text("게임 설정"), footer: Text("아미노산이 표시될 이름, 힌트 등이 표시됩니다.")) {
                 Picker(selection: $category, label: Text("아미노산 이름 모드")) {
                     ForEach(0..<categories.count) { index in
-                        Text(categories[index]).tag(index)
+                        Text(String(describing: categories[index])).tag(index)
                     }
                 }
                 Toggle(isOn: $showHint, label: {
