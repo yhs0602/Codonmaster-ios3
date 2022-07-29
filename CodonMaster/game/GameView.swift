@@ -16,17 +16,16 @@ struct GameView: View {
     var body: some View {
         ZStack {
             VStack {
+                HStack(spacing: 10) {
+                    ProgressBar(value: Binding.constant(Float(gameViewModel.life) / 100.0)).frame(maxHeight: 30)
+                    Text(String(gameViewModel.score))
+                }.padding()
                 ZStack(alignment: .topLeading) {
                     GeometryReader { geometry in
                         ForEach(gameViewModel.acids, id: \.self) { acid in
                             AcidView(geometry: geometry.size, acid: acid, namemode: gameViewModel.namemode)
                         }
                     }
-                    HStack(spacing: 10) {
-                        ProgressBar(value: Binding.constant(Float(gameViewModel.life) / 100.0)).frame(maxHeight: 30)
-                        Text(String(gameViewModel.score))
-                    }.padding()
-                    Spacer()
                 }
                 Text(gameViewModel.combiningAcid.description)
                 HStack(spacing: 0) {
@@ -47,7 +46,12 @@ struct GameView: View {
                     Button(action: { self.presentationMode.wrappedValue.dismiss() }, label: {
                         Text("Go back")
                     })
-                }.background(.brown).padding()
+                }.background(
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(.cyan)
+                        .shadow(radius: 3)
+                        .padding(30)
+                )
             }
         }
             .onDisappear {
