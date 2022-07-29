@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>android_latest_version</key>
+  <string>1.8</string>
+  <key>android_minimum_version</key>
+  <string>1.8</string>
+  <key>announcement</key>
+  <string>[{"title":"서버 이전 안내","lang":"ko","time":"202111030124","content":"서버 관리하는 것을 너무 오랫동안 잊어버려 서버가 사라졌습니다. 죄송합니다.","image":"earth"}]</string>
+  <key>help</key>
+  <string>도움말</string>
+</dict>
+</plist>
