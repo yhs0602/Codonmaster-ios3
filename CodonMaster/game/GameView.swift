@@ -12,7 +12,7 @@ import SwiftUI
 struct GameView: View {
     @StateObject var gameViewModel = GameViewModel()
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         ZStack {
             VStack {
@@ -39,22 +39,23 @@ struct GameView: View {
             if gameViewModel.showHint {
                 Text("Hint: \(gameViewModel.acids.first?.kind.codon ?? "unknown")")
             }
-
+            
             if gameViewModel.isGameOver {
-                VStack {
+                VStack(spacing: 10) {
                     Text("GameOver! \(gameViewModel.nickname)")
                     Button(action: { self.presentationMode.wrappedValue.dismiss() }, label: {
                         Text("Go back")
                     })
-                }.background(
+                }
+                .padding(30)
+                .background(
                     RoundedRectangle(cornerRadius: 6)
                         .fill(.cyan)
                         .shadow(radius: 3)
-                        .padding(30)
                 )
             }
         }
-            .onDisappear {
+        .onDisappear {
             self.gameViewModel.invalidate()
         }
     }
