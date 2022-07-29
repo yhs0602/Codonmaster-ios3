@@ -91,27 +91,17 @@
 		460820C0288694ED00B6AA5C /* CodonMaster */ = {
 			isa = PBXGroup;
 			children = (
-				46BD92252894069E0017F4FC /* UserDefaults+DomainSchemas.swift */,
+				46BD922C289409750017F4FC /* setting */,
+				46BD922B289409660017F4FC /* ranking */,
+				46BD9229289408D70017F4FC /* game */,
+				46BD92282894089F0017F4FC /* extensions */,
+				46BD9227289408950017F4FC /* announcement */,
 				46BD92212893FF590017F4FC /* remote_config_defaults.plist */,
 				46BD92172893FBD90017F4FC /* GoogleService-Info.plist */,
-				46270EF928897E96008967D7 /* RankingView.swift */,
 				460820C1288694ED00B6AA5C /* CodonMasterApp.swift */,
 				460820C3288694ED00B6AA5C /* ContentView.swift */,
 				460820C5288694EF00B6AA5C /* Assets.xcassets */,
 				460820C7288694EF00B6AA5C /* Preview Content */,
-				46270EF728897E77008967D7 /* GameView.swift */,
-				46270EFB28897EF8008967D7 /* SettingView.swift */,
-				46C460FB288987F500752293 /* AnnounceView.swift */,
-				46C460FD28898B2800752293 /* ProgressBar.swift */,
-				4658E7B4289131AB0073FB5E /* GameViewModel.swift */,
-				4658E7B628916A9E0073FB5E /* GameThread.swift */,
-				4658E7BA289268B30073FB5E /* NSLock+with.swift */,
-				4658E7BC289269980073FB5E /* BaseButton.swift */,
-				4658E7BE289269B30073FB5E /* AcidView.swift */,
-				4658E7C0289269D10073FB5E /* Base.swift */,
-				4690E5F828929B760082EDF4 /* AcidCombinator.swift */,
-				4690E5FA28929B950082EDF4 /* AcidKind.swift */,
-				46BD92232894016F0017F4FC /* Announcement.swift */,
 			);
 			path = CodonMaster;
 			sourceTree = "<group>";
@@ -122,6 +112,56 @@
 				460820C8288694EF00B6AA5C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		46BD9227289408950017F4FC /* announcement */ = {
+			isa = PBXGroup;
+			children = (
+				46BD92232894016F0017F4FC /* Announcement.swift */,
+				46C460FB288987F500752293 /* AnnounceView.swift */,
+			);
+			path = announcement;
+			sourceTree = "<group>";
+		};
+		46BD92282894089F0017F4FC /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				46BD92252894069E0017F4FC /* UserDefaults+DomainSchemas.swift */,
+				4658E7BA289268B30073FB5E /* NSLock+with.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		46BD9229289408D70017F4FC /* game */ = {
+			isa = PBXGroup;
+			children = (
+				46C460FD28898B2800752293 /* ProgressBar.swift */,
+				4658E7BC289269980073FB5E /* BaseButton.swift */,
+				4658E7C0289269D10073FB5E /* Base.swift */,
+				4690E5F828929B760082EDF4 /* AcidCombinator.swift */,
+				4690E5FA28929B950082EDF4 /* AcidKind.swift */,
+				4658E7BE289269B30073FB5E /* AcidView.swift */,
+				4658E7B4289131AB0073FB5E /* GameViewModel.swift */,
+				4658E7B628916A9E0073FB5E /* GameThread.swift */,
+				46270EF728897E77008967D7 /* GameView.swift */,
+			);
+			path = game;
+			sourceTree = "<group>";
+		};
+		46BD922B289409660017F4FC /* ranking */ = {
+			isa = PBXGroup;
+			children = (
+				46270EF928897E96008967D7 /* RankingView.swift */,
+			);
+			path = ranking;
+			sourceTree = "<group>";
+		};
+		46BD922C289409750017F4FC /* setting */ = {
+			isa = PBXGroup;
+			children = (
+				46270EFB28897EF8008967D7 /* SettingView.swift */,
+			);
+			path = setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
