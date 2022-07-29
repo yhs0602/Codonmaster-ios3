@@ -35,6 +35,10 @@ struct ContentView: View {
                 } label: {
                     Label("Announcement", systemImage: "speaker")
                 }
+                
+                Button("Crash") {
+                  fatalError("Crash was triggered")
+                }
             }
         }
     }
