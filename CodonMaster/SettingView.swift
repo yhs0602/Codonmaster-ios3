@@ -16,9 +16,9 @@ enum NameMode: String, CaseIterable {
 }
 
 struct SettingView: View {
-    @State private var nickname = ""
-    @State private var category = 0
-    @State private var showHint = false
+    @AppStorage("nickname") private var nickname = ""
+    @AppStorage("namemode") private var namemode = 0
+    @AppStorage("show_hint") private var showHint = false
 
     let categories = NameMode.allCases
     var body: some View {
@@ -27,7 +27,7 @@ struct SettingView: View {
                 TextField("Nickname", text: $nickname)
             }
             Section(header: Text("게임 설정"), footer: Text("아미노산이 표시될 이름, 힌트 등이 표시됩니다.")) {
-                Picker(selection: $category, label: Text("아미노산 이름 모드")) {
+                Picker(selection: $namemode, label: Text("아미노산 이름 모드")) {
                     ForEach(0..<categories.count) { index in
                         Text(String(describing: categories[index])).tag(index)
                     }
