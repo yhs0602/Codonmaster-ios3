@@ -6,9 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum AcidKind: CaseIterable {
     case Phe, Leu, Ile, Met, Val, Ser, Pro, Thr, Ala, Tyr, End, His, Gln, Asn, Lys, Asp, Glu, Cys, Trp, Arg, Gly
+    
+    var color: UIColor {
+        let name = String(describing: self)
+        let rgbValue = name.ThirtyTwoBitHash
+        let red = CGFloat((128 + rgbValue & 0xFF0000) >> 16) / 0xFF
+        let green = CGFloat((128 + rgbValue & 0x00FF00) >> 8) / 0xFF
+        let blue = CGFloat(128 + rgbValue & 0x0000FF) / 0xFF
+        let alpha = CGFloat(1.0)
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
     
     var full: String {
         switch (self) {

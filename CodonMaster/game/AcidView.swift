@@ -15,6 +15,8 @@ struct AcidView: View {
     let y: CGFloat
     let acid: Acid
     let namemode: NameMode
+    let foregroundColor: Color
+    let backgroundColor: Color
     
     init(geometry: CGSize, acid: Acid, namemode: NameMode) {
         self.w = geometry.width
@@ -23,6 +25,12 @@ struct AcidView: View {
         self.x = CGFloat(acid.x) * self.w
         self.y = CGFloat(acid.age) * self.h
         self.namemode = namemode
+        self.backgroundColor = Color(acid.kind.color)
+        if acid.kind.color.isLight(threshold: 0.5) != true {
+            self.foregroundColor = Color.white
+        } else {
+            self.foregroundColor = Color.black
+        }
     }
     
     var body: some View {
@@ -31,9 +39,10 @@ struct AcidView: View {
             .frame(height: 40)
             .background(
                 RoundedRectangle(cornerRadius: 5)
-                    .fill(Color.white)
+                    .fill(self.backgroundColor)
                     .shadow(radius: 3)
             )
+            .foregroundColor(self.foregroundColor)
             .position(x: x, y: y)
     }
 }

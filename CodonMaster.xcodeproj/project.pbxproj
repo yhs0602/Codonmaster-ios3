@@ -22,6 +22,8 @@
 		4658E7C1289269D10073FB5E /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4658E7C0289269D10073FB5E /* Base.swift */; };
 		4690E5F928929B760082EDF4 /* AcidCombinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4690E5F828929B760082EDF4 /* AcidCombinator.swift */; };
 		4690E5FB28929B950082EDF4 /* AcidKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4690E5FA28929B950082EDF4 /* AcidKind.swift */; };
+		46930BB128940D9600F5EA3C /* String+hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46930BB028940D9600F5EA3C /* String+hash.swift */; };
+		46930BB3289412AA00F5EA3C /* UIColor+isbright.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46930BB2289412AA00F5EA3C /* UIColor+isbright.swift */; };
 		46BD92182893FBD90017F4FC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46BD92172893FBD90017F4FC /* GoogleService-Info.plist */; };
 		46BD921B2893FC720017F4FC /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 46BD921A2893FC720017F4FC /* FirebaseCrashlytics */; };
 		46BD921D2893FC720017F4FC /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 46BD921C2893FC720017F4FC /* FirebaseRemoteConfig */; };
@@ -50,6 +52,8 @@
 		4658E7C0289269D10073FB5E /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		4690E5F828929B760082EDF4 /* AcidCombinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcidCombinator.swift; sourceTree = "<group>"; };
 		4690E5FA28929B950082EDF4 /* AcidKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcidKind.swift; sourceTree = "<group>"; };
+		46930BB028940D9600F5EA3C /* String+hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+hash.swift"; sourceTree = "<group>"; };
+		46930BB2289412AA00F5EA3C /* UIColor+isbright.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+isbright.swift"; sourceTree = "<group>"; };
 		46BD92172893FBD90017F4FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46BD92212893FF590017F4FC /* remote_config_defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = remote_config_defaults.plist; sourceTree = "<group>"; };
 		46BD92232894016F0017F4FC /* Announcement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 			children = (
 				46BD92252894069E0017F4FC /* UserDefaults+DomainSchemas.swift */,
 				4658E7BA289268B30073FB5E /* NSLock+with.swift */,
+				46930BB028940D9600F5EA3C /* String+hash.swift */,
+				46930BB2289412AA00F5EA3C /* UIColor+isbright.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -274,6 +280,7 @@
 				4658E7B728916A9E0073FB5E /* GameThread.swift in Sources */,
 				4658E7C1289269D10073FB5E /* Base.swift in Sources */,
 				4690E5F928929B760082EDF4 /* AcidCombinator.swift in Sources */,
+				46930BB3289412AA00F5EA3C /* UIColor+isbright.swift in Sources */,
 				46270EFA28897E96008967D7 /* RankingView.swift in Sources */,
 				46BD92242894016F0017F4FC /* Announcement.swift in Sources */,
 				4690E5FB28929B950082EDF4 /* AcidKind.swift in Sources */,
@@ -283,6 +290,7 @@
 				46BD92262894069E0017F4FC /* UserDefaults+DomainSchemas.swift in Sources */,
 				46270EF828897E77008967D7 /* GameView.swift in Sources */,
 				460820C2288694ED00B6AA5C /* CodonMasterApp.swift in Sources */,
+				46930BB128940D9600F5EA3C /* String+hash.swift in Sources */,
 				46C460FE28898B2800752293 /* ProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

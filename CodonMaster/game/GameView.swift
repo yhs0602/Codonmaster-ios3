@@ -47,7 +47,7 @@ struct GameView: View {
                     Button(action: { self.presentationMode.wrappedValue.dismiss() }, label: {
                         Text("Go back")
                     })
-                }
+                }.background(.brown).padding()
             }
         }
             .onDisappear {
