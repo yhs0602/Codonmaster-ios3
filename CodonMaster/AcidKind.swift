@@ -9,7 +9,7 @@ import Foundation
 
 enum AcidKind: CaseIterable {
     case Phe, Leu, Ile, Met, Val, Ser, Pro, Thr, Ala, Tyr, End, His, Gln, Asn, Lys, Asp, Glu, Cys, Trp, Arg, Gly
-
+    
     var full: String {
         switch (self) {
         case .Phe: return "Phenylalanine"
@@ -35,7 +35,7 @@ enum AcidKind: CaseIterable {
         case .Gly: return "Glycine"
         }
     }
-
+    
     var kor: String {
         switch (self) {
         case .Phe: return "페닐알라닌"
@@ -61,7 +61,7 @@ enum AcidKind: CaseIterable {
         case .Gly: return "글라이신"
         }
     }
-
+    
     var singleLetterName: String {
         switch (self) {
         case .Phe: return "F"
@@ -87,7 +87,7 @@ enum AcidKind: CaseIterable {
         case .Gly: return "G"
         }
     }
-
+    
     var codon: String {
         switch (self) {
         case .Phe: return "UUU, UUC"
@@ -111,6 +111,15 @@ enum AcidKind: CaseIterable {
         case .Trp: return "UGG"
         case .Arg: return "CGU, CGC, CGA, CGG, AGA, AGG"
         case .Gly: return "GGU, GGC, GGA, GGG"
+        }
+    }
+    
+    func description(namemode: NameMode) -> String {
+        switch(namemode) {
+        case .Full: return full
+        case .Korean: return kor
+        case .Single: return singleLetterName
+        case .Three: return String(describing: self)
         }
     }
 }

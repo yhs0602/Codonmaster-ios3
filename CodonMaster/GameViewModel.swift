@@ -19,10 +19,20 @@ class GameViewModel: ObservableObject {
     let acidPublisher: AnyPublisher<Acid, Never>
     var acidPublishCancellable: AnyCancellable? = nil
     var gameLoopCancellable: AnyCancellable? = nil
+    
+    let namemode: NameMode
+    let showHint: Bool
+    let nickname: String
+    
     init() {
         self.life = 100
         self.score = 0
         self.isGameOver = false
+        let userDefaults = UserDefaults.standard
+        self.namemode = NameMode.allCases[userDefaults.integer(forKey: "namemode")]
+        self.showHint = userDefaults.bool(forKey: "show_hint")
+        self.nickname = userDefaults.string(forKey: "nickname") ?? "anonymous"
+        
         acidPublisher = CodonMaster.acidPublisher()
         acidPublishCancellable = acidPublisher
             .receive(on: RunLoop.main)

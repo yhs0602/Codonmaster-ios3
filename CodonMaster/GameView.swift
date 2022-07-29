@@ -12,14 +12,14 @@ import SwiftUI
 struct GameView: View {
     @StateObject var gameViewModel = GameViewModel()
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
         ZStack {
             VStack {
                 ZStack(alignment: .topLeading) {
                     GeometryReader { geometry in
                         ForEach(gameViewModel.acids, id: \.self) { acid in
-                            AcidView(geometry: geometry.size, acid: acid)
+                            AcidView(geometry: geometry.size, acid: acid, namemode: gameViewModel.namemode)
                         }
                     }
                     HStack(spacing: 10) {
@@ -37,16 +37,20 @@ struct GameView: View {
                     BaseButton(title: "CLR", onClick: gameViewModel.onClickBase, background: .white)
                 }.fixedSize(horizontal: false, vertical: true)
             }
-            if (gameViewModel.isGameOver) {
+            if gameViewModel.showHint {
+                Text("Hint: \(gameViewModel.acids.first?.kind.codon ?? "unknown")")
+            }
+
+            if gameViewModel.isGameOver {
                 VStack {
-                    Text("GameOver")
+                    Text("GameOver! \(gameViewModel.nickname)")
                     Button(action: { self.presentationMode.wrappedValue.dismiss() }, label: {
                         Text("Go back")
                     })
                 }
             }
         }
-        .onDisappear {
+            .onDisappear {
             self.gameViewModel.invalidate()
         }
     }
