@@ -15,7 +15,7 @@ struct RankingView: View {
             LazyVStack {
                 ForEach(rankingViewModel.rankings, id: \.self) { ranking in
                     HStack {
-                        Text(ranking.name)
+                        Text(ranking.nickname)
                         Text(String(ranking.score))
                         Text(Date(timeIntervalSince1970: ranking.timestamp).description)
                     }

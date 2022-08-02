@@ -15,15 +15,15 @@ class GameViewModel: ObservableObject {
     @Published var life: Int
     @Published var score: Int
     @Published var isGameOver: Bool
-    
+
     let acidPublisher: AnyPublisher<Acid, Never>
     var acidPublishCancellable: AnyCancellable? = nil
     var gameLoopCancellable: AnyCancellable? = nil
-    
+
     let namemode: NameMode
     let showHint: Bool
     let nickname: String
-    
+
     init() {
         self.life = 100
         self.score = 0
@@ -32,7 +32,7 @@ class GameViewModel: ObservableObject {
         self.namemode = NameMode.allCases[userDefaults.integer(forKey: "namemode")]
         self.showHint = userDefaults.bool(forKey: "show_hint")
         self.nickname = userDefaults.string(forKey: "nickname") ?? "anonymous"
-        
+
         acidPublisher = CodonMaster.acidPublisher()
         acidPublishCancellable = acidPublisher
             .receive(on: RunLoop.main)
@@ -64,7 +64,7 @@ class GameViewModel: ObservableObject {
                 }
             }
     }
-    
+
     func invalidate() {
         acidPublishCancellable?.cancel()
         acidPublishCancellable = nil
@@ -72,7 +72,7 @@ class GameViewModel: ObservableObject {
         gameLoopCancellable = nil
         print("[<<] invalidated")
     }
-    
+
     func onClickBase(what: String) {
         var result: AcidKind? = nil
         switch (what) {
@@ -101,10 +101,16 @@ class GameViewModel: ObservableObject {
             }
         }
     }
-    
+
     func endGame() {
         invalidate()
         isGameOver = true
+        sendRanking()
+    }
+
+    func sendRanking() {
+        RankingDB.shared.addRankingInfo(RankingData(nickname: nickname, score: score, timestamp: NSDate().timeIntervalSince1970))
+        print("Sent ranking")
     }
 }
 

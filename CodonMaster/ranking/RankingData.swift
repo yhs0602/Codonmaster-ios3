@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct RankingData : Hashable {
-    var name: String
+struct RankingData : Hashable, Codable {
+    var nickname: String
     var score: Int
     var timestamp: Double
 }

@@ -10,33 +10,36 @@ import FirebaseDatabase
 
 class RankingDB {
     static let shared = RankingDB()
-
+    
     var ref: DatabaseReference!
-
+    
     private init() {
         ref = Database.database(url: "https://codonmaster-5018a-default-rtdb.asia-southeast1.firebasedatabase.app").reference()
     }
-
+    
     func addRankingInfo(_ data: RankingData) {
-        ref.child("ranking").childByAutoId().setValue(data)
+        ref.child("ranking").childByAutoId().setValue(data.dictionary)
     }
-
+    
     func getRankings(completionHandler: @escaping ([RankingData]) -> Void) {
-        ref.child("ranking").getData { error, snapshot in
+        ref.child("ranking").queryOrdered(byChild: "score").getData { error, snapshot in //
             guard error == nil else {
                 print(error!.localizedDescription)
                 return
             }
             print(snapshot?.value ?? "")
-
-            let rankings = (snapshot?.value as? [Dictionary<String, Any>])?.map { value in
+            
+            if let rankings = (snapshot?.value as? Dictionary<String, Dictionary<String, Any>>)?.values.map({ value in
                 RankingData(
-                    name: value["nickname"] as? String ?? "error",
+                    nickname: value["nickname"] as? String ?? "error",
                     score: value["score"] as? Int ?? -1,
                     timestamp: value["timestamp"] as? Double ?? 0
                 )
-            } ?? []
-            completionHandler(rankings)
+            }) {
+                completionHandler(rankings)
+            } else {
+                print("error")
+            }
         }
     }
 }

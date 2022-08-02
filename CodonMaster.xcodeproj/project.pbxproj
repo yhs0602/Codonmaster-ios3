@@ -37,6 +37,7 @@
 		46C460FE28898B2800752293 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C460FD28898B2800752293 /* ProgressBar.swift */; };
 		46EDD48028989D5000E3C7A0 /* RankingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EDD47F28989D5000E3C7A0 /* RankingRepository.swift */; };
 		46EDD4822898C45900E3C7A0 /* RankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EDD4812898C45900E3C7A0 /* RankingViewModel.swift */; };
+		46EDD4842898CBEF00E3C7A0 /* Encodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EDD4832898CBEF00E3C7A0 /* Encodable+Dictionary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		46C460FD28898B2800752293 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		46EDD47F28989D5000E3C7A0 /* RankingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingRepository.swift; sourceTree = "<group>"; };
 		46EDD4812898C45900E3C7A0 /* RankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewModel.swift; sourceTree = "<group>"; };
+		46EDD4832898CBEF00E3C7A0 /* Encodable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Dictionary.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				4658E7BA289268B30073FB5E /* NSLock+with.swift */,
 				46930BB028940D9600F5EA3C /* String+hash.swift */,
 				46930BB2289412AA00F5EA3C /* UIColor+isbright.swift */,
+				46EDD4832898CBEF00E3C7A0 /* Encodable+Dictionary.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				46EDD48028989D5000E3C7A0 /* RankingRepository.swift in Sources */,
 				4658E7BF289269B30073FB5E /* AcidView.swift in Sources */,
 				46C460FC288987F600752293 /* AnnounceView.swift in Sources */,
+				46EDD4842898CBEF00E3C7A0 /* Encodable+Dictionary.swift in Sources */,
 				46270EFC28897EF8008967D7 /* SettingView.swift in Sources */,
 				4658E7B728916A9E0073FB5E /* GameThread.swift in Sources */,
 				4658E7C1289269D10073FB5E /* Base.swift in Sources */,
