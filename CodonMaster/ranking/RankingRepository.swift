@@ -22,7 +22,7 @@ class RankingDB {
     }
     
     func getRankings(completionHandler: @escaping ([RankingData]) -> Void) {
-        ref.child("ranking").queryOrdered(byChild: "score").getData { error, snapshot in //
+        ref.child("ranking").getData { error, snapshot in // queryOrdered(byChild: "score")
             guard error == nil else {
                 print(error!.localizedDescription)
                 return
