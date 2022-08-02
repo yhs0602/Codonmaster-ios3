@@ -9,7 +9,21 @@ import Foundation
 import SwiftUI
 
 struct RankingView: View {
+    @StateObject var rankingViewModel = RankingViewModel()
     var body: some View {
-        Text("TODO")
+        ScrollView {
+            LazyVStack {
+                ForEach(rankingViewModel.rankings, id: \.self) { ranking in
+                    HStack {
+                        Text(ranking.name)
+                        Text(String(ranking.score))
+                        Text(Date(timeIntervalSince1970: ranking.timestamp).description)
+                    }
+                }
+            }
+        }
+        .onAppear {
+            rankingViewModel.fetchRanking()
+        }
     }
 }

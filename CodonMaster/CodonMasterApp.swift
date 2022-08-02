@@ -8,7 +8,6 @@
 import SwiftUI
 import FirebaseCore
 import FirebaseRemoteConfig
-import FirebaseFirestore
 
 @main
 struct CodonMasterApp: App {
