@@ -8,7 +8,9 @@
 import Foundation
 import SwiftUI
 
-enum NameMode: String, CaseIterable {
+enum NameMode: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+    
     case Single = "Single letter"
     case Three = "Three letters"
     case Full = "Full name"

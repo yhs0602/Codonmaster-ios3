@@ -11,11 +11,11 @@ import SwiftUI
 
 struct AnnounceView: View {
     let announcements: [Announcement]
-    
+
     init() {
         announcements = UserDefaults.standard.announcements
     }
-    
+
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .center) {
@@ -34,15 +34,17 @@ struct AnnounceView: View {
 
 struct AnnouncementDetailView: View {
     let announcement: Announcement
-    
+
     var body: some View {
-        HStack {
-            Text(announcement.image)
-            VStack {
-                Text(announcement.title)
-                Text(announcement.content)
-                Text(announcement.time)
+        VStack {
+            Text(announcement.title).font(.largeTitle).padding()
+//            Text(announcement.image)
+            Text(announcement.content).font(.body)
+            HStack {
+                Spacer()
+                Text(announcement.time).font(.footnote)
             }
-        }
+            Spacer()
+        }.padding()
     }
 }

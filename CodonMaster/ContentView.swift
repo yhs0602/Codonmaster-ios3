@@ -18,10 +18,15 @@ struct ContentView: View {
                     Label("Game Start", systemImage: "play")
                 }
 
+                //                NavigationLink {
+                //                    RankingView()
+                //                } label: {
+                //                    Label("Ranking", systemImage: "crown")
+                //                }
                 NavigationLink {
-                    RankingView()
+                    AnnounceView()
                 } label: {
-                    Label("Ranking", systemImage: "crown")
+                    Label("Announcement", systemImage: "speaker")
                 }
 
                 NavigationLink {
@@ -30,11 +35,6 @@ struct ContentView: View {
                     Label("Setting", systemImage: "gearshape")
                 }
 
-                NavigationLink {
-                    AnnounceView()
-                } label: {
-                    Label("Announcement", systemImage: "speaker")
-                }
             }
         }
     }
